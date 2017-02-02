@@ -1,47 +1,73 @@
-from __future__ import print_function
-from lxml import html
 from PIL import Image
-from crossword import Crossword
-import pytesseract
-import requests
-import string
 import sys
+import json
 
-def getImage(url):
-	page = requests.get(url)
-	tree = html.fromstring(page.content)
-	path = '//a[@href="'+url+'"]/img/@src'
-	imgUrl = tree.xpath(path)[0]
-	with open('./images/'+url[36:43]+'.png','wb') as file:
-		img = requests.get(imgUrl,stream=True)
-		print('image retrieved')
-		for chunk in img:
-			file.write(chunk)
-	print('image saved')
+nSquares = 15
 
-def parseImage(url):
-	imgLoc = './images/'+url[36:43]+'.png'
+def zero(n):
+	if len(str(n)) == 1:
+		return "0"+str(n)
+	else:
+		return str(n)
+
+def getBlackSquares(imgLoc):
 	im = Image.open(imgLoc)
 	im = Image.composite(im, Image.new('RGB', im.size, 'white'), im)
-	im.show()
-	print('image loaded and cleaned')
-	for i in range(15):
-		row = list()
-		for j in range(15):
-			boxOuter = (j*30,i*30,j*30+30,i*30+30)
-			tile = im.crop(boxOuter)
-			# tile.save('./images/tile_'+str(i)+'_'+str(j)+'.jpg')
-			if not tile.getbbox():
-				tileText = " "
-			else:
-				boxInner = (7,9,27,27)
-				tileInner = tile.crop(boxInner)
-				tileText = pytesseract.image_to_string(tileInner,config="-psm 10 -l eng -c tessedit_char_whitelist="+string.ascii_uppercase)
-				## this is hacky - find a better way
-				tileText = "I" if tileText == "" else tileText
-			row.append(tileText)
-		print(" ".join(row))
+	pps = im.size[0]/nSquares
+	return [{i,j} for i in range(15) for j in range(15) if not im.crop((j*pps,i*pps,j*pps+pps,i*pps+pps)).getbbox()]
 
-url = sys.argv[1] or 'http://www.nytcrossword.com/2017/01/0102-17-new-york-times-crossword.html'
-getImage(url)
-parseImage(url)
+def placeClues(blackSquares):
+	blank = "  "
+	n = 1
+	grid = list()
+	clues = {
+		"Across": list(),
+		"Down": list()
+	}
+	for i in range(nSquares):
+		grid.append(list())
+		for j in range(nSquares):
+			if len(blackSquares) > 0 and {i,j} == blackSquares[0]:
+				grid[i].append(blank)
+				blackSquares.pop(0)
+			else:
+				if i == 0 and j == 0:
+					grid[i].append(zero(n))
+					clues["Down"].append(str(n)+"-Down")
+					clues["Across"].append(str(n)+"-Across")
+					n+=1
+				elif i == 0:
+					grid[i].append(zero(n))
+					clues["Down"].append(str(n)+"-Down")
+					n+=1
+				elif j == 0:
+					grid[i].append(zero(n))
+					clues["Across"].append(str(n)+"-Across")
+					n+=1
+				elif grid[i][j-1] == blank and grid[i-1][j] == blank:
+					grid[i].append(zero(n))
+					clues["Across"].append(str(n)+"-Across")
+					clues["Down"].append(str(n)+"-Down")
+					n+=1
+				elif grid[i][j-1] == blank:
+					grid[i].append(zero(n))
+					clues["Across"].append(str(n)+"-Across")
+					n+=1
+				elif grid[i-1][j] == blank:
+					grid[i].append(zero(n))
+					clues["Down"].append(str(n)+"-Down")
+					n+=1
+				else:
+					grid[i].append("__")
+		print(" ".join(grid[i]))
+	# print('\n')
+	# print(json.dumps(clues,indent=2))
+	return grid
+
+url = sys.argv[1] if len(sys.argv) > 1 else 'http://www.nytcrossword.com/2017/01/0102-17-new-york-times-crossword.html'
+placeClues(getBlackSquares('./images/'+url[36:43]+'.png'))
+
+class crossword(object):
+	def __init__(self,grid,clues):
+		self.grid = grid,
+		self.clues = clues
