@@ -1,6 +1,8 @@
 from __future__ import print_function
 from lxml import html
 from PIL import Image
+from utils import *
+import calendar
 import pytesseract
 import requests
 import string
@@ -13,21 +15,19 @@ def saveImage(url):
 	imgUrl = tree.xpath(path)[0]
 	with open('./images/'+url[36:43]+'.png','wb') as file:
 		img = requests.get(imgUrl,stream=True)
-		print('image retrieved')
 		for chunk in img:
 			file.write(chunk)
-	print('image saved')
 
-def parseAndPrintImage(url):
+def parseAndPrintImage(url,nSquares):
 	imgLoc = './images/'+url[36:43]+'.png'
 	im = Image.open(imgLoc)
 	im = Image.composite(im, Image.new('RGB', im.size, 'white'), im)
-	im.show()
-	print('image loaded and cleaned')
-	for i in range(15):
+	pps = im.size[0]/nSquares
+	# im.show()
+	for i in range(nSquares):
 		row = list()
-		for j in range(15):
-			boxOuter = (j*30,i*30,j*30+30,i*30+30)
+		for j in range(nSquares):
+			boxOuter = (j*pps,i*pps,j*pps+pps,i*pps+pps)
 			tile = im.crop(boxOuter)
 			# tile.save('./images/tile_'+str(i)+'_'+str(j)+'.jpg')
 			if not tile.getbbox():
@@ -41,6 +41,15 @@ def parseAndPrintImage(url):
 			row.append(tileText)
 		print(" ".join(row))
 
-url = sys.argv[1] if len(sys.argv) > 1 else 'http://www.nytcrossword.com/2017/01/0102-17-new-york-times-crossword.html'
-saveImage(url)
-parseAndPrintImage(url)
+def saveMultipleImages():
+	year = "2017"
+	for i in range(1,2):
+		day = calendar.monthrange(int(year),i)[1]
+		for j in range(1,day+1):
+			url = "http://www.nytcrossword.com/"+year+"/"+zero(i)+"/"+zero(i)+zero(j)+"-"+year[2:]+"-new-york-times-crossword.html"
+			saveImage(url)
+
+# url = sys.argv[1] if len(sys.argv) > 1 else 'http://www.nytcrossword.com/2017/01/0102-17-new-york-times-crossword.html'
+# saveImage(url)
+# parseAndPrintImage(url,15)
+saveMultipleImages()

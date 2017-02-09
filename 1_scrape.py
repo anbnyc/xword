@@ -1,14 +1,9 @@
 from lxml import html
+from utils import *
 import requests
 import calendar
 import json
 import re
-
-def zero(n):
-	if len(str(n)) == 1:
-		return "0"+str(n)
-	else:
-		return str(n)
 
 def retrieve(url):
 	page = requests.get(url)
@@ -34,7 +29,7 @@ def retrieve(url):
 			clues[direction].append({
 				"location": location,
 				"clue": clue.strip('[ \-\.]'),
-				"answer": answer.strip()
+				"answer": "" #answer.strip()
 			})
 		except:
 			try:
@@ -42,7 +37,7 @@ def retrieve(url):
 				clues[direction].append({
 					"location": location,
 					"clue": clue.strip('[ \-\.]'),
-					"answer": answer.strip()
+					"answer": "" #answer.strip()
 				})
 			except:
 				print((url, d))
@@ -53,24 +48,21 @@ collection = []
 errors = list()
 
 def main():
-	year = "2016"
-	for i in range(1,13):
+	year = "2017"
+	for i in range(1,2):
 		day = calendar.monthrange(int(year),i)[1]
 		for j in range(1,day+1):
-			url = "http://www.nytcrossword.com/2016/"+zero(i)+"/"+zero(i)+zero(j)+"-16-new-york-times-crossword.html"
+			url = "http://www.nytcrossword.com/"+year+"/"+zero(i)+"/"+zero(i)+zero(j)+"-"+year[2:]+"-new-york-times-crossword.html"
 			collection.append({
 				"date": year+"-"+zero(i)+'-'+zero(j),
-				"puzzle": retrieve(url)
+				"clues": retrieve(url)
 			})
-
-	url = 'http://www.nytcrossword.com/2017/01/0131-17-new-york-times-crossword_31.html'
-	retrieve(url)
 
 	errorfile = open('./errors.txt','w')
 	errorfile.write('\n'.join(map(lambda x: x[0]+";"+x[1],errors)))
 	errorfile.close()
 
-	datafile = open('./data.json','w')
+	datafile = open('./data/data_'+year+'.json','w')
 	datafile.write(json.dumps(collection,indent=1))
 	datafile.close()
 
