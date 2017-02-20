@@ -7,9 +7,18 @@ import calendar
 class Clue(object):
 	def __init__(self,direction,locNum,coords=(0,0),length=0):
 		self.location = str(locNum)+"-"+direction
-		self.coords = coords
 		self.length = length
+		self.coords = self.getcoords(coords,length,direction)
 		self.answer = ""
+	def getcoords(self,start,length,direction):
+		coords = [start]
+		if direction == "Across":
+			for j in range(1,length):
+				coords.append((start[0],start[1]+j))
+		else:
+			for i in range(1,length):
+				coords.append((start[0]+i,start[1]))
+		return coords
 	def __repr__(self):
 		return str({'location': self.location, 'coords': self.coords, 'length': self.length})
 
@@ -74,21 +83,20 @@ def mergeWithClues():
 	with open('./data/data_'+year+'.json','r') as f:
 		clues_from_text = f.read()
 		clues_from_text = json.loads(clues_from_text)
-	data = list()
 	for i in range(1,2):
 		day = calendar.monthrange(int(year),i)[1]
-		for j in [x for x in range(1,day) if x != 19 and x != 24]:
+		for j in [x for x in range(1,day) if x != 19 and x != 24]: ## unreadable files
 			nSquares = 21 if calendar.weekday(iyear, i, j) == 6 else 15
 			url_date = zero(i)+zero(j)+"-"+year[2:]
 			cal_date = year+"-"+zero(i)+'-'+zero(j)
 			print(url_date,cal_date)
 			date_clues_from_image, grid = placeClues(getBlackSquares('./images/'+url_date+'.png',nSquares),nSquares)
-			date_clues_from_text = [x for x in clues_from_text if x["date"] == cal_date][0]['puzzle']
+			date_clues_from_text = [x for x in clues_from_text if x["date"] == cal_date][0]['clues']
 			merge = list()
 			for dir in ("Across","Down"):
-				merge += [{'location': a['location'], 'clue': a['clue'], 'coords': b.coords, 'length': b.length} for a in date_clues_from_text[dir] for b in date_clues_from_image[dir] if a['location'] == b.location]
-			data.append({"date": cal_date, "clues": merge, "grid": grid})
-	with open('./data/merge_'+year+'.json','w') as f:
-		f.write(json.dumps(data,indent=1))
+				merge += [{'location': a['location'], 'clue': a['clue'], 'answer': a['answer'], 'coords': b.coords, 'length': b.length} for a in date_clues_from_text[dir] for b in date_clues_from_image[dir] if a['location'] == b.location]
+			data = [{"date": cal_date, "clues": merge, "grid": grid}]
+			with open('./data/merge_'+url_date+'.json','w') as f:
+				f.write(json.dumps(data,indent=1))
 
 mergeWithClues()

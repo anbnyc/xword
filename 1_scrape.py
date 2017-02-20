@@ -3,6 +3,7 @@ from utils import *
 import requests
 import calendar
 import json
+import string
 import re
 
 def retrieve(url):
@@ -29,7 +30,7 @@ def retrieve(url):
 			clues[direction].append({
 				"location": location,
 				"clue": clue.strip('[ \-\.]'),
-				"answer": "" #answer.strip()
+				"answer": re.sub('['+string.punctuation+']','',answer)
 			})
 		except:
 			try:
@@ -37,7 +38,7 @@ def retrieve(url):
 				clues[direction].append({
 					"location": location,
 					"clue": clue.strip('[ \-\.]'),
-					"answer": "" #answer.strip()
+					"answer": re.sub('['+string.punctuation+']','',answer)
 				})
 			except:
 				print((url, d))

@@ -2,13 +2,17 @@ import json
 import urllib
 import functools
 import itertools
-# import spacy
 import numpy as np
+import string
 import re
+import nltk
 from nltk.corpus import wordnet as wn
 from nltk.corpus import stopwords
 
+# import spacy
 # nlp = spacy.load('en')
+# vocab = sortVocab(15)
+
 def cosine(v1, v2):
 	v1 = list(map(lambda x: float(x),v1))
 	v2 = list(map(lambda x: float(x),v2))
@@ -32,12 +36,9 @@ def getKnowledgeGraphCandidates(clue,length):
 	candidates = set()
 	response = json.loads(urllib.request.urlopen(url).read())
 	for element in response['itemListElement']:
-		try:
+		if element["result"].get("detailedDescription",{}).get("articleBody",None) is not None:
 			article = re.split(", |\. |\s",element["result"]["detailedDescription"]["articleBody"])
 			candidates.update(set(filter(lambda x: len(x) == length,article)))
-		except:
-			if element["result"].get("name"):
-				print("no results: ",element["result"]["name"])
 	return candidates
 
 """
@@ -97,30 +98,39 @@ def sortVocab(maxlen):
 Takes array of clues and appends candidate answers
 """
 def getCandidates(clues):
-	vocab = sortVocab(15)
-	for i,v in enumerate(clues[52:]):
+	for i,v in enumerate(clues):
 		clue = v['clue']
 		length = v['length']
 		print(clue,length)
 		if clue.find(' ') == -1:
-			v["candidates_wordnet"] = getWordnetCandidates(clue,length)
-			print('candidates_wordnet',v["candidates_wordnet"])
+			v["cand_wn"] = getWordnetCandidates(clue,length)
+			# print('cand_wn',v["cand_wn"])
 		elif "___" in clue:
-			print(clue)
+			print("___",clue)
+		elif re.search('([0-9]+)(\-)(Across|Down)',clue) is not None:
+			print("x-A/y-D",clue)
 		else:
-			clue_tokens = [nlp.vocab[x.lower_] for x in nlp(clue) if x.pos_ == "NOUN" or x.pos_ == "PROPN"]
-			v["candidates_vec"] = getSpacyCandidates(clue_tokens,length,vocab[length],5)
-			clue_tokens = [nlp.vocab[x] for x in clue.split() if x not in stopwords.words('english')]
-			v["candidates_vec"].update(getSpacyCandidates(clue_tokens,length,vocab[length],5))
-			print('candidates_vec', v["candidates_vec"])
+			formulations = []
+			formulations.append([nlp.vocab[x.lower_] for x in nlp(clue) if x.pos_ == "NOUN" or x.pos_ == "PROPN"])
+			formulations.append([nlp.vocab[x] for x in clue.split() if x not in stopwords.words('english')])
+			if len(formulations[0]) == 0 and len(formulations[1]) == 0:
+				formulations = list([nlp.vocab[x.lower_] for x in nlp(clue) if x.pos_ is not "PART"])
+			v["cand_vec"] = set()
+			for clue_tokens in formulations:
+				if len(clue_tokens) != 0:
+					v["cand_vec"].update(getSpacyCandidates(clue_tokens,length,vocab[length],5))
+			# print('cand_vec', v["cand_vec"])
+
+			v["cand_kg"] = set()
 			clue_tokens = getTokensForKGSearch(clue,True)
-			v["candidates_know"] = set()
 			if clue_tokens != '':
-				v["candidates_know"].update(getKnowledgeGraphCandidates(clue_tokens,length))
+				v["cand_kg"].update(getKnowledgeGraphCandidates(clue_tokens,length))
 			clue_tokens = getTokensForKGSearch(clue,False)
 			if clue_tokens != '':
-				v["candidates_know"].update(getKnowledgeGraphCandidates(clue_tokens,length))
-			print('candidates_know:', v["candidates_know"])
+				v["cand_kg"].update(getKnowledgeGraphCandidates(clue_tokens,length))
+			# print('cand_kg:', v["cand_kg"])
+			v["cand_vec"] = list(v["cand_vec"])
+			v["cand_kg"] = list(v["cand_kg"])
 		clues[i] = v
 	return clues
 
@@ -141,10 +151,11 @@ Opens JSON file and passes clues to parse function
 	fileloc (str): path to JSON file
 """
 def loadPuzzle(fileloc):
-	with open(fileloc,'r') as f:
-		puzzle = json.loads(f.read())[0]
-		puzzle['clues'] = getCandidates(puzzle['clues'])
-		if input("print to file? y/n") == 'y':
-			f.write(json.dumps(puzzle,indent=1))
+	with open(fileloc,'r') as fr:
+		puzzle = json.loads(fr.read())[0]
+	puzzle['clues'] = getCandidates(puzzle['clues'])
+	if input("print to file? y/n: ") == 'y':
+		with open(fileloc[:-5]+"_cands.json",'w') as fw:
+			fw.write(json.dumps(puzzle,indent=1))
 
 loadPuzzle('./data/merge_0102-17.json')
