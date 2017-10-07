@@ -11905,10 +11905,23 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Solving-a-Crossword-Puzzle-the-Hard-Way">Solving a Crossword Puzzle the Hard Way<a class="anchor-link" href="#Solving-a-Crossword-Puzzle-the-Hard-Way">&#182;</a></h1><h2 id="Alec-Barrett">Alec Barrett<a class="anchor-link" href="#Alec-Barrett">&#182;</a></h2><h3 id="PyGotham">PyGotham<a class="anchor-link" href="#PyGotham">&#182;</a></h3><h3 id="October-7,-2017">October 7, 2017<a class="anchor-link" href="#October-7,-2017">&#182;</a></h3>
+<h1 id="Solving-a-Crossword-Puzzle-the-Hard-Way">Solving a Crossword Puzzle the Hard Way<a class="anchor-link" href="#Solving-a-Crossword-Puzzle-the-Hard-Way">&#182;</a></h1><h2 id="Alec-Barrett">Alec Barrett<a class="anchor-link" href="#Alec-Barrett">&#182;</a></h2><h3 id="October-7,-2017">October 7, 2017<a class="anchor-link" href="#October-7,-2017">&#182;</a></h3>
 </div>
 </div>
-</div></section></section><section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Thank you for being here.  Thanks to the organizers of PyGotham for putting on this conference and having me speak. My name is Alec Barrett and by day I'm a JavaScript developer at Two-N, a data visualization firm here in NYC.</p>
+<p>The project I’d like to talk to you about originated about eight months ago, when I was studying at the Recurse Center.  In accordance with RC's mission, I wanted to become a better programmer, and I wanted to learn Python.</p>
+<p>Meanwhile, I’ve been regularly doing the New York Times crossword puzzle for a couple of years now. Raise your hand if you do a crossword puzzle at least once a week. I also wanted to get better at solving crossword puzzles, and spend some time thinking about how the clues and answers work. So I set out to build a Python program that could solve the New York Times crossword puzzle.</p>
+
+</div>
+</div>
+</div>
+</aside></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11917,7 +11930,7 @@ a.anchor-link {
 <li>NYT Crossword</li>
 <li>The Task</li>
 <li>NLP</li>
-<li>My Solver</li>
+<li>The Solver</li>
 <li>Conclusion</li>
 </ol>
 
@@ -11937,7 +11950,7 @@ a.anchor-link {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Puzzle-features">Puzzle features<a class="anchor-link" href="#Puzzle-features">&#182;</a></h3><ul>
-<li>American-style</li>
+<li>"American-style"</li>
 <li>Get more difficult as the week goes on</li>
 <li>15 x 15 every day except Sunday (21 x 21)</li>
 <li>~75-80 clue/answer pairs</li>
@@ -11945,7 +11958,18 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Some of you may already be familiar with the New York Times and other “American” style crossword puzzles (i.e., every letter is part of a word that goes Across and one that goes Down). There’s a puzzle each day of the week, and they get more difficult as the week goes on, with Monday being the easiest and Saturday the hardest. Sunday is in between but is also larger, at 21x21 squares rather than the 15x15 grid for the rest. The number of clue-answer pairs in a typical 15x15 grid is in the high 70s or low 80s. This past Monday’s puzzle had 76.</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11959,7 +11983,38 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section></section><section><section>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/Screen Shot 2017-10-07 at 10.11.27 AM.png" alt="twentyeightacross"></p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/Screen Shot 2017-10-07 at 10.12.04 AM.png" alt="oneacross"></p>
+
+</div>
+</div>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What makes a crossword puzzle difficult? Length of words, obscurity of answers, and use of wordplay or words with multiple meanings.</p>
+<p>Conversely, what makes a solver good at crosswords is a large vocabulary, an encyclopedic knowledge of names and terms from a wide range of topics, the ability to think laterally and across multiple associations, and the ability to constrain one’s thoughts based on the length of words and letters, if any, already in the puzzle.</p>
+<p>A few more idiosyncrasies about crossword puzzles are worth mentioning: clues contain contextual information about the corresponding answer: singular or plural, verb tense, abbreviations. Clues can refer to the answer to other clues, e.g., “28-Across: Slippery 1-Across”. That's impossible to answer confidently without knowing first what 1-Across's answer is, or at least what its clue is.</p>
+
+</div>
+</div>
+</div>
+</aside></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11983,7 +12038,18 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Some of these constituent tasks are better suited to a computer than a human: searching a thesaurus, for example, or filtering a long list of words based on length and matching letters in specific places. Others, like interpreting puns or considering pairs of answers together, are not impossible, but certainly more of a stretch for the machine.</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12002,7 +12068,26 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>My strategy was to write a program that would generate, for each clue in the puzzle, a list of candidate answers that fit the size of the corresponding space. I believe that given a list of possible answers for each word that includes the correct answer, the program should be able to identify the correct answer based on the unique combination of other candidates that contain the same letters. For example, we would be more confident about the word “FISH” in 1-Across if we also found candidates starting with “F”,”I”,”S”, and “H” in the intersecting Down spaces.</p>
+<p>I used five different methods to build up this list of candidates:</p>
+<ul>
+<li>Google Knowledge Graph search API</li>
+<li>Wikipedia search API</li>
+<li>Dictionary (PyDictionary)</li>
+<li>Wordnet (NLTK)</li>
+<li>Vectors (spaCy)</li>
+</ul>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12019,7 +12104,19 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I think about these methods in two groups, encyclopedias and dictionaries. The first two sources will try to find answers that are informationally related to their clues: that the Taj Mahal is made of marble, or that there is a physicist Enrico whose last name is Fermi. These will often involve proper nouns, either in the clue or answer or both.</p>
+<p>The other three will try to find answers that are semantically related to their clues: a term for "bundles of hay" is "bales", or an "artery" is another word for a "major highway". These will tend to be words that could be found in a dictionary, though it is with these words that tenses and pluralization matter more.</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12048,26 +12145,40 @@ a.anchor-link {
 <td>KG, Wiki, Vectors</td>
 </tr>
 <tr>
-<td>Else</td>
+<td>Else...</td>
 <td><code>Gas company famous for its toy trucks</code></td>
 <td>KG, Wiki, Vectors</td>
 </tr>
 <tr>
-<td>+if we can extract one word</td>
+<td>... and if we can extract one word</td>
 <td><code>Distort, as data</code></td>
-<td>+Dictionary, WordNet</td>
+<td>+ Dictionary, WordNet</td>
 </tr>
 </tbody>
 </table>
 
 </div>
 </div>
-</div></section></section><section><section>
+</div><aside class="notes">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="III.-Natural-Language-Processing">III. Natural Language Processing<a class="anchor-link" href="#III.-Natural-Language-Processing">&#182;</a></h2>
+<p>I also made some determinations about which methods to use for which types of clues. First of all, there are practical limitations: it doesn’t make sense to search for synonyms if there are multiple meaningful words in the clue. Secondly, some clues provide a blank space, suggesting that there is either a common phrase or a proper name that the answer will complete.</p>
+<p>This table shows the different conditions my program checks for when deciding which methods to apply to each clue.</p>
+<p><em>Ad Lib</em></p>
+<p>I think the most interesting, not to mention trendy, of these approaches are the natural language processing libraries, NLTK and spaCy, and I’ll talk about those methods in detail. And I don’t want to give anyone false hope, so I’ll spoil the surprise right now: my program, in its current form, does not solve a full puzzle. I’ll explain later what some of its limitations are. But some of the answers it is able to generate are pretty remarkable, and it gives me hope that these methods, with continued iteration and refinement, could get there eventually.</p>
+
+</div>
+</div>
+</div>
+</aside></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="III.-Natural-Language-Processing-(NLP)">III. Natural Language Processing (NLP)<a class="anchor-link" href="#III.-Natural-Language-Processing-(NLP)">&#182;</a></h2>
 </div>
 </div>
 </div></section><section>
@@ -12082,7 +12193,18 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The first of these two libraries, Natural Language Toolkit (NLTK), provides access to Wordnet, self-described as a “lexical database of English.” I first learned about NLTK from a fellow Recurser building a project with Markov chains, a different sort of word association task. NLTK has a repository of large English language corpuses for tasks like these.</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12096,10 +12218,27 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For my purposes, Wordnet is useful in that it exposes relationships between words more complex than just synonyms and antonyms. Wordnet lets my program take a one-word clue and explore a literal network of words</p>
+<ul>
+<li>Hypernyms: things of which this is an example (less specific)</li>
+<li>Root hypernyms: the most general thing of which this is an example (less specific)</li>
+<li>Hyponyms: examples of this (more specific)</li>
+<li>Member holonyms: things of which this is a part (more/equal specificity)</li>
+</ul>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[83]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">noSpace</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
@@ -12109,12 +12248,16 @@ a.anchor-link {
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--&gt; &#39;</span><span class="p">,</span><span class="n">synset</span><span class="p">,</span><span class="s2">&quot;(iteration&quot;</span><span class="p">,</span><span class="n">iteration</span><span class="p">,</span><span class="s2">&quot;)&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">synset</span><span class="o">.</span><span class="n">lemma_names</span><span class="p">():</span>
         <span class="n">candidates</span><span class="o">.</span><span class="n">update</span><span class="p">({</span> 
-            <span class="n">noSpace</span><span class="p">(</span><span class="n">lemmaname</span><span class="p">)</span> <span class="k">for</span> <span class="n">lemmaname</span> <span class="ow">in</span> <span class="n">synset</span><span class="o">.</span><span class="n">lemma_names</span><span class="p">()</span> <span class="k">if</span> <span class="n">noSpace</span><span class="p">(</span><span class="n">lemmaname</span><span class="p">)</span> <span class="o">==</span> <span class="n">length</span> 
+            <span class="n">noSpace</span><span class="p">(</span><span class="n">lemmaname</span><span class="p">)</span> 
+            <span class="k">for</span> <span class="n">lemmaname</span> 
+            <span class="ow">in</span> <span class="n">synset</span><span class="o">.</span><span class="n">lemma_names</span><span class="p">()</span> <span class="k">if</span> <span class="n">noSpace</span><span class="p">(</span><span class="n">lemmaname</span><span class="p">)</span> <span class="o">==</span> <span class="n">length</span> 
         <span class="p">})</span>
     <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;root_hypernyms&#39;</span><span class="p">,</span><span class="s1">&#39;member_holonyms&#39;</span><span class="p">,</span><span class="s1">&#39;hyponyms&#39;</span><span class="p">,</span><span class="s1">&#39;hypernyms&#39;</span><span class="p">]:</span>
         <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">synset</span><span class="p">,</span><span class="n">attr</span><span class="p">)():</span>
             <span class="k">for</span> <span class="n">nym</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">synset</span><span class="p">,</span><span class="n">attr</span><span class="p">)():</span>
-                <span class="n">results</span> <span class="o">=</span> <span class="p">{</span> <span class="n">noSpace</span><span class="p">(</span><span class="n">lemma</span><span class="o">.</span><span class="n">name</span><span class="p">())</span> <span class="k">for</span> <span class="n">lemma</span> <span class="ow">in</span> <span class="n">nym</span><span class="o">.</span><span class="n">lemmas</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">noSpace</span><span class="p">(</span><span class="n">lemma</span><span class="o">.</span><span class="n">name</span><span class="p">()))</span> <span class="o">==</span> <span class="n">length</span> <span class="p">}</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="p">{</span> <span class="n">noSpace</span><span class="p">(</span><span class="n">lemma</span><span class="o">.</span><span class="n">name</span><span class="p">())</span> 
+                           <span class="k">for</span> <span class="n">lemma</span> <span class="ow">in</span> <span class="n">nym</span><span class="o">.</span><span class="n">lemmas</span><span class="p">()</span> 
+                           <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">noSpace</span><span class="p">(</span><span class="n">lemma</span><span class="o">.</span><span class="n">name</span><span class="p">()))</span> <span class="o">==</span> <span class="n">length</span> <span class="p">}</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
                     <span class="nb">print</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="n">results</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">iteration</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
@@ -12125,15 +12268,144 @@ a.anchor-link {
 </div>
 </div>
 
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Ad Lib</em></p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/Screen Shot 2017-10-07 at 2.27.28 PM.png" alt="fiveacross"></p>
+
+</div>
+</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">synonyms</span> <span class="o">=</span> <span class="n">wn</span><span class="o">.</span><span class="n">synsets</span><span class="p">(</span><span class="s1">&#39;somersault&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">synonyms</span><span class="p">),</span> <span class="n">synonyms</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">syn</span> <span class="ow">in</span> <span class="n">synonyms</span><span class="p">:</span>
+<span class="n">synonyms</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[36]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Synset(&#39;somersault.n.01&#39;), Synset(&#39;somersault.v.01&#39;)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Ad Lib</em></p>
+
+</div>
+</div>
+</div>
+</aside></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">synonyms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hypernyms</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[37]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Synset(&#39;roll_over.v.01&#39;)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">synonyms</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">root_hypernyms</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[38]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Synset(&#39;move.v.03&#39;)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">syn</span> <span class="ow">in</span> <span class="n">synonyms</span><span class="p">:</span>
     <span class="n">searchWordnetSpaceDemo</span><span class="p">(</span><span class="n">syn</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 
@@ -12151,8 +12423,7 @@ a.anchor-link {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2 [Synset(&#39;somersault.n.01&#39;), Synset(&#39;somersault.v.01&#39;)]
---&gt;  Synset(&#39;somersault.n.01&#39;) (iteration 2 )
+<pre>--&gt;  Synset(&#39;somersault.n.01&#39;) (iteration 2 )
 --&gt;  Synset(&#39;entity.n.01&#39;) (iteration 3 )
 --&gt;  Synset(&#39;flip-flop.n.04&#39;) (iteration 3 )
 hypernyms {&#39;flip&#39;}
@@ -12168,10 +12439,10 @@ hyponyms {&#39;beat&#39;}
 hyponyms {&#39;flap&#39;, &#39;beat&#39;}
 hyponyms {&#39;bolt&#39;}
 hyponyms {&#39;buck&#39;, &#39;jerk&#39;}
-hyponyms {&#39;cant&#39;, &#39;tilt&#39;}
+hyponyms {&#39;tilt&#39;, &#39;cant&#39;}
 hyponyms {&#39;tilt&#39;}
 hyponyms {&#39;chop&#39;}
-hyponyms {&#39;roil&#39;, &#39;boil&#39;, &#39;moil&#39;}
+hyponyms {&#39;roil&#39;, &#39;moil&#39;, &#39;boil&#39;}
 hyponyms {&#39;duck&#39;}
 hyponyms {&#39;exit&#39;}
 hyponyms {&#39;flex&#39;, &#39;bend&#39;}
@@ -12189,8 +12460,8 @@ hyponyms {&#39;mill&#39;}
 hyponyms {&#39;mope&#39;}
 hyponyms {&#39;give&#39;}
 hyponyms {&#39;beat&#39;}
-hyponyms {&#39;roll&#39;, &#39;wave&#39;, &#39;flap&#39;}
-hyponyms {&#39;flow&#39;, &#39;feed&#39;}
+hyponyms {&#39;flap&#39;, &#39;roll&#39;, &#39;wave&#39;}
+hyponyms {&#39;feed&#39;, &#39;flow&#39;}
 hyponyms {&#39;part&#39;}
 hyponyms {&#39;slip&#39;}
 hyponyms {&#39;snap&#39;}
@@ -12214,7 +12485,18 @@ hypernyms {&#39;turn&#39;}
 </div>
 </div>
 
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Ad Lib</em></p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12228,7 +12510,7 @@ hypernyms {&#39;turn&#39;}
 </div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">))</span>
@@ -12256,7 +12538,18 @@ hypernyms {&#39;turn&#39;}
 </div>
 </div>
 
-</div></div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Another application of NLP for this project was parsing the clues to separate high-signal words from filler material. NLP has this concept of stop words, common words that could be removed while preserving a lot of the original meaning. This is NLTK's built-in list of English stopwords.</p>
+
+</div>
+</div>
+</div>
+</aside></div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12265,13 +12558,14 @@ hypernyms {&#39;turn&#39;}
 <li>Extract most relevant information</li>
 <li>Determine case/tense of answer</li>
 </ul>
+<p><img src="images/Screen Shot 2017-10-07 at 12.53.14 PM.png" alt="fortyonedown"></p>
 
 </div>
 </div>
 </div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="s2">&quot;Butcher&#39;s offerings&quot;</span><span class="p">)))</span>
@@ -12302,7 +12596,7 @@ hypernyms {&#39;turn&#39;}
 </div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="s2">&quot;butcher&#39;s offerings&quot;</span><span class="p">)))</span>
@@ -12331,9 +12625,18 @@ hypernyms {&#39;turn&#39;}
 </div>
 
 </div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/Screen Shot 2017-10-07 at 12.54.22 PM.png" alt="sixtyfiveacross"></p>
+
+</div>
+</div>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">clue</span> <span class="o">=</span> <span class="s2">&quot;Jump in an ice rink&quot;</span>
@@ -12350,7 +12653,7 @@ hypernyms {&#39;turn&#39;}
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[8]:</div>
+<div class="prompt output_prompt">Out[43]:</div>
 
 
 
@@ -12364,7 +12667,19 @@ hypernyms {&#39;turn&#39;}
 </div>
 </div>
 
-</div></div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Both NLTK and spaCy also provide part-of-speech tagging, which is useful because it lets me weed out words that were unlikely to be directly related to the answer, but also because crossword clues are carefully written with hints about the answer. As I mentioned earlier, a plural clue indicates a plural answer, past tense indicates past tense, so it is important for the program to know these details. Take for example, this Monday’s 41-Down, “Butcher’s offerings”. Given strict instructions to filter out anything that isn’t 5 letters, the program wouldn’t give “MEAT” a second thought unless it realized that it should be counting the “S” on the end.</p>
+<p>This was an important level of processing not just for the “dictionary” methods but also for the “encyclopedia” methods. The search terms I pass to Knowledge Graph and Wikipedia include different formulations of the clues -- one without stop words, one with only nouns, one with only nouns, adjectives, and adverbs -- in order to create the greatest likelihood that those searches return text that contains the correct answer.</p>
+
+</div>
+</div>
+</div>
+</aside></div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12389,7 +12704,18 @@ hypernyms {&#39;turn&#39;}
 
 </div>
 </div>
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The second NLP library I used, spaCy, describes itself as “industrial-strength natural language processing.” Among its many features is an API for word vectors, trained using the word2vec algorithm that you may have heard of. It has a million-word dictionary built on a project out of Stanford called Glove (Global Vectors for Word Representation). In order to perform mathematical operations on words, they are represented as vectors in 300-dimensional space, which for practical purposes means an array of 300 numbers. None of these values has any inherent meaning, but they can be added and subtracted.</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12400,10 +12726,10 @@ hypernyms {&#39;turn&#39;}
 
 </div>
 </div>
-</div></section><section>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;king&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">vector</span>
@@ -12419,7 +12745,7 @@ hypernyms {&#39;turn&#39;}
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[9]:</div>
+<div class="prompt output_prompt">Out[44]:</div>
 
 
 
@@ -12532,15 +12858,49 @@ hypernyms {&#39;turn&#39;}
 </div>
 </div>
 
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The most famous illustration of word vectors, maybe at this point a little clichéd, is the arithmetic expression King - Man + Woman = Queen. Has anyone come across this before?</p>
+
+</div>
+</div>
+</div>
+</aside></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">queen1</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;king&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">vector</span> <span class="o">-</span> <span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;man&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">vector</span> <span class="o">+</span> <span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;woman&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">vector</span>
 <span class="n">queen2</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;queen&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">vector</span>
-<span class="n">queen1</span> <span class="o">-</span> <span class="n">queen2</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I think it’s worth unpacking this a little. Of course, if you take the vector for King, subtract the vector for Man, and add the vector for Woman, the result isn’t a word, it’s a vector. Is it the exact vector for Queen? We can show that it is not.</p>
+
+</div>
+</div>
+</div>
+</aside><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">queen1</span> <span class="o">-</span> <span class="n">queen2</span>
 </pre></div>
 
 </div>
@@ -12553,7 +12913,7 @@ hypernyms {&#39;turn&#39;}
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[10]:</div>
+<div class="prompt output_prompt">Out[78]:</div>
 
 
 
@@ -12626,12 +12986,12 @@ hypernyms {&#39;turn&#39;}
 </div>
 </div>
 
-</div></section><section>
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="spacy:-Word-Vectors">spacy: Word Vectors<a class="anchor-link" href="#spacy:-Word-Vectors">&#182;</a></h3><ul>
+<h3 id="spaCy:-Word-Vectors">spaCy: Word Vectors<a class="anchor-link" href="#spaCy:-Word-Vectors">&#182;</a></h3><ul>
 <li>Find n closest vectors in our vocabulary</li>
 <li>Vocabulary is already nested by word length</li>
 <li><code>cosine = lambda v1, v2: np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))</code></li>
@@ -12639,30 +12999,36 @@ hypernyms {&#39;turn&#39;}
 
 </div>
 </div>
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What we’re actually left with is a brand new vector that does not represent any word in our vocabulary -- it just represents a position in 300-dimensional space. The task then becomes how to find the vocabulary words whose vectors we know that are closest to that position. To do this we use something called cosine similarity, the formula for which I found online, so I’m not going to try to explain it to you here. The point is that when someone gives the example of King - Man + Woman = Queen, what they should say "the difference between '(King - Man + Woman)'" and 'Queen' is less than the difference between that expression and any other word’s vector." But it gets wordy.</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getSpacyFormulationsDemo</span><span class="p">(</span><span class="n">clue</span><span class="p">):</span>
-    <span class="n">formulations</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">formulations</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">clue</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">)])</span>
-    <span class="n">formulations</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower_</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nlp</span><span class="p">(</span><span class="n">clue</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">pos_</span> <span class="o">==</span> <span class="s2">&quot;NOUN&quot;</span> <span class="ow">or</span> <span class="n">x</span><span class="o">.</span><span class="n">pos_</span> <span class="o">==</span> <span class="s2">&quot;PROPN&quot;</span><span class="p">])</span>
-    <span class="n">formulations</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower_</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nlp</span><span class="p">(</span><span class="n">clue</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">pos_</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;NOUN&quot;</span><span class="p">,</span><span class="s2">&quot;PROPN&quot;</span><span class="p">,</span><span class="s2">&quot;ADJ&quot;</span><span class="p">,</span><span class="s2">&quot;ADV&quot;</span><span class="p">]</span> <span class="p">])</span>
-    <span class="n">formulations</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower_</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nlp</span><span class="p">(</span><span class="n">clue</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">pos_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s2">&quot;PART&quot;</span><span class="p">])</span>
-    <span class="n">formulations</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lemma_</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nlp</span><span class="p">(</span><span class="n">clue</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">tag_</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;NNS&quot;</span><span class="p">,</span><span class="s2">&quot;NNPS&quot;</span><span class="p">,</span><span class="s2">&quot;NN&quot;</span><span class="p">,</span><span class="s2">&quot;NNP&quot;</span><span class="p">]])</span>
-    <span class="k">if</span> <span class="n">clue</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-        <span class="n">formulations</span> <span class="o">+=</span> <span class="n">getSpacyFormulationsDemo</span><span class="p">(</span><span class="n">clue</span><span class="p">[:</span><span class="n">clue</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)])</span>
-    <span class="k">if</span> <span class="n">clue</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39; (&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-        <span class="n">formulations</span> <span class="o">+=</span> <span class="n">getSpacyFormulationsDemo</span><span class="p">(</span><span class="n">clue</span><span class="p">[:</span><span class="n">clue</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39; (&#39;</span><span class="p">)])</span>
-    <span class="k">return</span> <span class="n">formulations</span>
-
-<span class="k">def</span> <span class="nf">getSpacyCandidatesDemo</span><span class="p">(</span><span class="n">clue</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">vocab</span><span class="p">,</span><span class="n">ret_count</span><span class="p">):</span>
-    <span class="n">vecs</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">vector</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">clue</span><span class="p">]</span>
-    <span class="n">vecsum</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span><span class="n">vecs</span><span class="p">)</span>
-    <span class="n">vocab</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">vocab</span> <span class="k">if</span> <span class="n">w</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">clue</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\&#39;</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">lower_</span><span class="p">)</span><span class="o">==</span><span class="kc">None</span><span class="p">]</span>
-    <span class="n">vocab</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="n">cosine</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">vector</span><span class="p">,</span> <span class="n">vecsum</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getSpacyCandidatesDemo</span><span class="p">(</span><span class="n">clue</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">vocab</span><span class="p">,</span><span class="n">ret_count</span><span class="p">):</span>
+    <span class="c1"># vector for each tagged Lexeme</span>
+    <span class="n">vecs</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">vector</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">clue</span><span class="p">]</span>                      
+    <span class="c1"># sum the vectors</span>
+    <span class="n">vecsum</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span><span class="n">vecs</span><span class="p">)</span>                    
+    <span class="c1"># exclude words already in clue</span>
+    <span class="c1"># exclude contractions</span>
+    <span class="n">vocab</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span>                                              
+             <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">vocab</span> 
+             <span class="k">if</span> <span class="n">w</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">clue</span>                            
+             <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\&#39;</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">lower_</span><span class="p">)</span><span class="o">==</span><span class="kc">None</span><span class="p">]</span>        
+    <span class="c1"># sort vocab by cosine similarity</span>
+    <span class="n">vocab</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="n">cosine</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">vector</span><span class="p">,</span> <span class="n">vecsum</span><span class="p">))</span>   
     <span class="nb">print</span><span class="p">({</span><span class="n">w</span><span class="o">.</span><span class="n">orth_</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">vocab</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">ret_count</span><span class="p">:]})</span>
 </pre></div>
 
@@ -12670,13 +13036,35 @@ hypernyms {&#39;turn&#39;}
 </div>
 </div>
 
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the crossword solving application, I don’t have anything to subtract, but I can add together word vectors and find other words in the vocabulary that are close by. Remember, we’re just searching vocabulary words of a given length, but that still entails taking the entire vocabulary list and sorting it in order of closeness, as determined by cosine similarity. This doesn’t feel efficient though it is plenty fast for my needs.</p>
+<p><em>Ad Lib</em></p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/Screen Shot 2017-10-07 at 12.58.04 PM.png" alt="thirtythreeacross"></p>
+
+</div>
+</div>
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[93]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">formulation</span> <span class="ow">in</span> <span class="n">getSpacyFormulationsDemo</span><span class="p">(</span><span class="s2">&quot;Plan that&#39;s hatched&quot;</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">clue</span> <span class="o">=</span> <span class="s2">&quot;Plan that&#39;s hatched&quot;</span>
+<span class="k">for</span> <span class="n">formulation</span> <span class="ow">in</span> <span class="n">getSpacyFormulationsDemo</span><span class="p">(</span><span class="n">clue</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--&gt; &#39;</span><span class="p">,[</span><span class="n">x</span><span class="o">.</span><span class="n">lower_</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">formulation</span><span class="p">])</span>
     <span class="n">getSpacyCandidatesDemo</span><span class="p">(</span><span class="n">formulation</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">vocab</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
@@ -12696,15 +13084,15 @@ hypernyms {&#39;turn&#39;}
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--&gt;  [&#39;plan&#39;, &#34;that&#39;s&#34;, &#39;hatched&#39;]
-{&#39;agenda&#39;, &#39;decide&#39;, &#39;scheme&#39;, &#39;future&#39;, &#39;should&#39;, &#39;intend&#39;, &#39;agreed&#39;, &#39;policy&#39;, &#39;effort&#39;, &#39;budget&#39;}
+{&#39;decide&#39;, &#39;effort&#39;, &#39;agenda&#39;, &#39;agreed&#39;, &#39;intend&#39;, &#39;scheme&#39;, &#39;policy&#39;, &#39;future&#39;, &#39;budget&#39;, &#39;should&#39;}
 --&gt;  [&#39;plan&#39;]
-{&#39;agenda&#39;, &#39;decide&#39;, &#39;scheme&#39;, &#39;future&#39;, &#39;should&#39;, &#39;intend&#39;, &#39;agreed&#39;, &#39;policy&#39;, &#39;effort&#39;, &#39;budget&#39;}
+{&#39;decide&#39;, &#39;effort&#39;, &#39;agenda&#39;, &#39;agreed&#39;, &#39;intend&#39;, &#39;scheme&#39;, &#39;policy&#39;, &#39;future&#39;, &#39;budget&#39;, &#39;should&#39;}
 --&gt;  [&#39;plan&#39;, &#39;that&#39;]
-{&#39;decide&#39;, &#39;though&#39;, &#39;simply&#39;, &#39;rather&#39;, &#39;enough&#39;, &#39;future&#39;, &#39;should&#39;, &#39;really&#39;, &#39;likely&#39;, &#39;reason&#39;}
+{&#39;decide&#39;, &#39;likely&#39;, &#39;simply&#39;, &#39;reason&#39;, &#39;really&#39;, &#39;though&#39;, &#39;should&#39;, &#39;rather&#39;, &#39;enough&#39;, &#39;future&#39;}
 --&gt;  [&#39;plan&#39;, &#39;that&#39;, &#34;&#39;s&#34;, &#39;hatched&#39;]
-{&#39;wanted&#39;, &#39;saying&#39;, &#39;though&#39;, &#39;simply&#39;, &#39;rather&#39;, &#39;enough&#39;, &#39;future&#39;, &#39;should&#39;, &#39;really&#39;, &#39;reason&#39;}
+{&#39;wanted&#39;, &#39;simply&#39;, &#39;reason&#39;, &#39;really&#39;, &#39;saying&#39;, &#39;should&#39;, &#39;though&#39;, &#39;rather&#39;, &#39;enough&#39;, &#39;future&#39;}
 --&gt;  [&#39;plan&#39;]
-{&#39;agenda&#39;, &#39;decide&#39;, &#39;scheme&#39;, &#39;future&#39;, &#39;should&#39;, &#39;intend&#39;, &#39;agreed&#39;, &#39;policy&#39;, &#39;effort&#39;, &#39;budget&#39;}
+{&#39;decide&#39;, &#39;effort&#39;, &#39;agenda&#39;, &#39;agreed&#39;, &#39;intend&#39;, &#39;scheme&#39;, &#39;policy&#39;, &#39;future&#39;, &#39;budget&#39;, &#39;should&#39;}
 </pre>
 </div>
 </div>
@@ -12712,18 +13100,40 @@ hypernyms {&#39;turn&#39;}
 </div>
 </div>
 
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Unfortunately in this Monday’s puzzle, the only clue that was solved with word vectors was 33-Across, "Plan that's 'hatched'", though none of the other methods found the correct answer, "SCHEME", which means it’s adding unique value.</p>
+<p><em>Ad Lib</em></p>
+
+</div>
+</div>
+</div>
+</aside></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[94]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">formulation</span> <span class="ow">in</span> <span class="n">getSpacyFormulationsDemo</span><span class="p">(</span><span class="s2">&quot;Counterpart to &#39;if&#39;, in computer science&quot;</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">clue</span> <span class="o">=</span> <span class="s2">&quot;Counterpart to &#39;if&#39;, in computer science&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">formulation</span> <span class="ow">in</span> <span class="n">getSpacyFormulationsDemo</span><span class="p">(</span><span class="n">clue</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--&gt; &#39;</span><span class="p">,[</span><span class="n">x</span><span class="o">.</span><span class="n">lower_</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">formulation</span><span class="p">])</span>
     <span class="n">getSpacyCandidatesDemo</span><span class="p">(</span><span class="n">formulation</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">vocab</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="mi">8</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">When we just search for &quot;if&quot;:&#39;</span><span class="p">)</span>
-<span class="n">getSpacyCandidatesDemo</span><span class="p">(</span><span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;if&#39;</span><span class="p">),</span><span class="mi">4</span><span class="p">,</span><span class="n">vocab</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="mi">8</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12741,40 +13151,46 @@ hypernyms {&#39;turn&#39;}
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--&gt;  [&#39;counterpart&#39;, &#34;&#39;if&#39;,&#34;, &#39;computer&#39;, &#39;science&#39;]
-{&#39;data&#39;, &#39;tech&#39;, &#39;mind&#39;, &#39;kind&#39;, &#39;arts&#39;, &#39;work&#39;, &#39;math&#39;, &#39;idea&#39;}
+{&#39;arts&#39;, &#39;idea&#39;, &#39;data&#39;, &#39;mind&#39;, &#39;kind&#39;, &#39;work&#39;, &#39;math&#39;, &#39;tech&#39;}
 --&gt;  [&#39;counterpart&#39;, &#39;computer&#39;, &#39;science&#39;]
-{&#39;data&#39;, &#39;tech&#39;, &#39;mind&#39;, &#39;kind&#39;, &#39;arts&#39;, &#39;work&#39;, &#39;math&#39;, &#39;idea&#39;}
+{&#39;arts&#39;, &#39;idea&#39;, &#39;data&#39;, &#39;mind&#39;, &#39;kind&#39;, &#39;work&#39;, &#39;math&#39;, &#39;tech&#39;}
 --&gt;  [&#39;counterpart&#39;, &#39;computer&#39;, &#39;science&#39;]
-{&#39;data&#39;, &#39;tech&#39;, &#39;mind&#39;, &#39;kind&#39;, &#39;arts&#39;, &#39;work&#39;, &#39;math&#39;, &#39;idea&#39;}
+{&#39;arts&#39;, &#39;idea&#39;, &#39;data&#39;, &#39;mind&#39;, &#39;kind&#39;, &#39;work&#39;, &#39;math&#39;, &#39;tech&#39;}
 --&gt;  [&#39;counterpart&#39;, &#39;to&#39;, &#34;&#39;&#34;, &#39;if&#39;, &#34;&#39;&#34;, &#39;,&#39;, &#39;in&#39;, &#39;computer&#39;, &#39;science&#39;]
-{&#39;they&#39;, &#39;else&#39;, &#39;want&#39;, &#39;even&#39;, &#39;when&#39;, &#39;kind&#39;, &#39;what&#39;, &#39;that&#39;}
+{&#39;even&#39;, &#39;when&#39;, &#39;want&#39;, &#39;else&#39;, &#39;they&#39;, &#39;that&#39;, &#39;kind&#39;, &#39;what&#39;}
 --&gt;  [&#39;counterpart&#39;, &#39;computer&#39;, &#39;science&#39;]
-{&#39;data&#39;, &#39;tech&#39;, &#39;mind&#39;, &#39;kind&#39;, &#39;arts&#39;, &#39;work&#39;, &#39;math&#39;, &#39;idea&#39;}
---&gt;  [&#39;counterpart&#39;, &#34;&#39;if&#39;&#34;]
-{&#39;derp&#39;, &#39;zerg&#39;, &#39;gifs&#39;, &#39;prob&#39;, &#39;ikke&#39;, &#39;mech&#39;, &#39;mais&#39;, &#39;mobo&#39;}
---&gt;  [&#39;counterpart&#39;]
-{&#39;derp&#39;, &#39;zerg&#39;, &#39;gifs&#39;, &#39;prob&#39;, &#39;ikke&#39;, &#39;mech&#39;, &#39;mais&#39;, &#39;mobo&#39;}
---&gt;  [&#39;counterpart&#39;]
-{&#39;derp&#39;, &#39;zerg&#39;, &#39;gifs&#39;, &#39;prob&#39;, &#39;ikke&#39;, &#39;mech&#39;, &#39;mais&#39;, &#39;mobo&#39;}
---&gt;  [&#39;counterpart&#39;, &#39;to&#39;, &#34;&#39;&#34;, &#39;if&#39;, &#34;&#39;&#34;]
-{&#39;they&#39;, &#39;else&#39;, &#39;will&#39;, &#39;even&#39;, &#39;want&#39;, &#39;when&#39;, &#39;make&#39;, &#39;that&#39;}
---&gt;  [&#39;counterpart&#39;]
-{&#39;derp&#39;, &#39;zerg&#39;, &#39;gifs&#39;, &#39;prob&#39;, &#39;ikke&#39;, &#39;mech&#39;, &#39;mais&#39;, &#39;mobo&#39;}
-
-When we just search for &#34;if&#34;:
-{&#39;else&#39;, &#39;even&#39;, &#39;when&#39;, &#39;sure&#39;, &#39;does&#39;, &#39;what&#39;, &#39;then&#39;, &#39;that&#39;}
+{&#39;arts&#39;, &#39;idea&#39;, &#39;data&#39;, &#39;mind&#39;, &#39;kind&#39;, &#39;work&#39;, &#39;math&#39;, &#39;tech&#39;}
 </pre>
 </div>
 </div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getSpacyCandidatesDemo</span><span class="p">(</span><span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;if&#39;</span><span class="p">),</span><span class="mi">4</span><span class="p">,</span><span class="n">vocab</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
 
 <div class="output_area">
 
 <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/alec/.pyenv/versions/3.6.2/lib/python3.6/site-packages/ipykernel_launcher.py:11: RuntimeWarning: invalid value encountered in float_scalars
-  # This is added back by InteractiveShellApp.init_path()
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;even&#39;, &#39;when&#39;, &#39;else&#39;, &#39;then&#39;, &#39;that&#39;, &#39;sure&#39;, &#39;what&#39;, &#39;does&#39;}
 </pre>
 </div>
 </div>
@@ -12782,10 +13198,101 @@ When we just search for &#34;if&#34;:
 </div>
 </div>
 
-</div></section><section>
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getSpacyCandidatesDemo</span><span class="p">(</span><span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;counterpart&#39;</span><span class="p">),</span><span class="mi">4</span><span class="p">,</span><span class="n">vocab</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;ikke&#39;, &#39;mobo&#39;, &#39;derp&#39;, &#39;mech&#39;, &#39;gifs&#39;, &#39;prob&#39;, &#39;mais&#39;, &#39;zerg&#39;}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;counterpart&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">vector</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.
+  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And some weeks, word vectors do a lot better. A couple of weeks ago, in the September 18 puzzle, there was an example that I think is especially well suited to this audience. 41-Across, “Counterpart to 'if,' in computer science”. Four letters, anyone want to take a guess?</p>
+<p>The word vector method also solved this one, and again it was alone among the five methods I used on it. It turns out that a couple of phrases get you close to the vector for "ELSE", including “if computer science” and, as it turns out, “if”. So it seems like at least in some cases, all that matters is that one of the words has a similar vector to the answer and the rest of the words don’t pull it too far in another direction away from the answer.</p>
+<p>Some of you may have noticed this very curious set of words for "counterpart". Refusing to believe that these were actually semantically related to each other, I inspected the vector, and found...so not every word has a vector, and obviously this method won't work for them.</p>
+
+</div>
+</div>
+</div>
+</aside></div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">getSpacyCandidatesDemo</span><span class="p">(</span><span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;dairy animal&#39;</span><span class="p">),</span><span class="mi">3</span><span class="p">,</span><span class="n">vocab</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="mi">10</span><span class="p">)</span>
@@ -12805,7 +13312,7 @@ When we just search for &#34;if&#34;:
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;cat&#39;, &#39;pet&#39;, &#39;dog&#39;, &#39;eat&#39;, &#39;pig&#39;, &#39;cow&#39;, &#39;egg&#39;, &#39;soy&#39;, &#39;fed&#39;, &#39;zoo&#39;}
+<pre>{&#39;eat&#39;, &#39;soy&#39;, &#39;dog&#39;, &#39;pet&#39;, &#39;pig&#39;, &#39;fed&#39;, &#39;cat&#39;, &#39;cow&#39;, &#39;egg&#39;, &#39;zoo&#39;}
 </pre>
 </div>
 </div>
@@ -12816,7 +13323,7 @@ When we just search for &#34;if&#34;:
 </div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">getSpacyCandidatesDemo</span><span class="p">(</span><span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;dairy&#39;</span><span class="p">),</span><span class="mi">3</span><span class="p">,</span><span class="n">vocab</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="mi">10</span><span class="p">)</span>
@@ -12836,7 +13343,7 @@ When we just search for &#34;if&#34;:
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;raw&#39;, &#39;oil&#39;, &#39;eat&#39;, &#39;pig&#39;, &#39;cow&#39;, &#39;egg&#39;, &#39;hay&#39;, &#39;soy&#39;, &#39;fat&#39;, &#39;fed&#39;}
+<pre>{&#39;eat&#39;, &#39;soy&#39;, &#39;oil&#39;, &#39;pig&#39;, &#39;hay&#39;, &#39;fed&#39;, &#39;raw&#39;, &#39;cow&#39;, &#39;egg&#39;, &#39;fat&#39;}
 </pre>
 </div>
 </div>
@@ -12847,7 +13354,7 @@ When we just search for &#34;if&#34;:
 </div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">getSpacyCandidatesDemo</span><span class="p">(</span><span class="n">nlp</span><span class="p">(</span><span class="s1">&#39;animal&#39;</span><span class="p">),</span><span class="mi">3</span><span class="p">,</span><span class="n">vocab</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="mi">10</span><span class="p">)</span>
@@ -12867,7 +13374,7 @@ When we just search for &#34;if&#34;:
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;cat&#39;, &#39;fox&#39;, &#39;fur&#39;, &#39;toy&#39;, &#39;pet&#39;, &#39;dog&#39;, &#39;pig&#39;, &#39;cow&#39;, &#39;rat&#39;, &#39;zoo&#39;}
+<pre>{&#39;dog&#39;, &#39;pig&#39;, &#39;pet&#39;, &#39;cat&#39;, &#39;toy&#39;, &#39;rat&#39;, &#39;cow&#39;, &#39;fox&#39;, &#39;fur&#39;, &#39;zoo&#39;}
 </pre>
 </div>
 </div>
@@ -12875,12 +13382,23 @@ When we just search for &#34;if&#34;:
 </div>
 </div>
 
-</div></div></section></section><section><section>
+</div><aside class="notes">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="IV.-My-Solver">IV. My Solver<a class="anchor-link" href="#IV.-My-Solver">&#182;</a></h2>
+<p>In another case from the same puzzle, 12-Down, “Dairy animal”, 3 letters, it turns out the vectors for “dairy” and “animal” are both pretty close to the vectors for the correct answer, which is “COW”.</p>
+
+</div>
+</div>
+</div>
+</aside></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="IV.-The-Solver">IV. The Solver<a class="anchor-link" href="#IV.-The-Solver">&#182;</a></h2>
 </div>
 </div>
 </div></section><section>
@@ -12890,12 +13408,24 @@ When we just search for &#34;if&#34;:
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Utility-Functions">Utility Functions<a class="anchor-link" href="#Utility-Functions">&#182;</a></h3><ul>
 <li>Web scraping via BeautifulSoup</li>
-<li>OCR via pytesseract</li>
+<li>Optical character recognition (OCR) via pytesseract</li>
 </ul>
 
 </div>
 </div>
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I want to briefly share some of the utility functions I built in order to create the data pipeline that gave me access to clues, answers, and puzzle grids for the New York Times crossword. I should acknowledge that the Times does not, as far as I know, provide public access to its archive, so I am grateful for the blogger behind nytcrossword.com, which I scraped using BeautifulSoup to download text and images.</p>
+<p>There’s an obvious fragility to this much reliance on a third party resource, and in fact, the blogger behind nytcrossword.com upgraded the site and changed the format of the URLs for new posts, which caused me a brief moment of panic before I figured out what had changed.</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12904,10 +13434,22 @@ When we just search for &#34;if&#34;:
 
 </div>
 </div>
-</div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The images of the grids are hosted on the blog in PNG format, and in order to locate each clue and determine which answers intersected with each other, I needed to parse the image to locate the black squares. I even had some fun with Tesseract, an optical character recognition library, which allowed me to extract answers directly from the image of a completed puzzle.</p>
+<p>While I didn’t necessarily need to use OCR to extract the answers, because I got them from the blog the same way I got the clues, I did need at least to scan the image somehow, and slice it into 15 rows and columns, in order to determine where the black squares fall. Once you know their locations, it’s fairly easy to determine the X,Y coordinates of each answer; it’s like the game Battleship: if you know the start and length, you know where the rest of it is.</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="prompt input_prompt">In&nbsp;[73]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">parseAndPrintImageDemo</span><span class="p">(</span><span class="n">n_squares</span><span class="p">,</span> <span class="n">img_path</span><span class="p">):</span>
@@ -12922,12 +13464,28 @@ When we just search for &#34;if&#34;:
             <span class="k">if</span> <span class="ow">not</span> <span class="n">tile</span><span class="o">.</span><span class="n">getbbox</span><span class="p">():</span>
                 <span class="n">tileText</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">tileInner</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">crop</span><span class="p">((</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">27</span><span class="p">))</span>
+                <span class="c1"># Crop out numbers</span>
+                <span class="n">tileInner</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">crop</span><span class="p">((</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">27</span><span class="p">))</span>             
                 <span class="n">tileText</span> <span class="o">=</span> <span class="n">pytesseract</span><span class="o">.</span><span class="n">image_to_string</span><span class="p">(</span><span class="n">tileInner</span><span class="p">,</span><span class="n">config</span><span class="o">=</span><span class="s2">&quot;-psm 10 -l eng -c tessedit_char_whitelist=&quot;</span><span class="o">+</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">)</span>
-                <span class="n">tileText</span> <span class="o">=</span> <span class="s2">&quot;I&quot;</span> <span class="k">if</span> <span class="n">tileText</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="n">tileText</span>
+                <span class="c1"># Hack: if unrecognized, assume &#39;I&#39;</span>
+                <span class="n">tileText</span> <span class="o">=</span> <span class="s2">&quot;I&quot;</span> <span class="k">if</span> <span class="n">tileText</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="n">tileText</span> 
             <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tileText</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[82]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">parseAndPrintImageDemo</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;./images/1002-17.png&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;elapsed: &#39;</span><span class="p">,</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12959,6 +13517,7 @@ M A R B L E     T I S   I R A
 B L O O D T Y P E S   A X E L
 A B O D E   E A R L   H O E S
 S A T Y R   S T Y E   A N K A
+elapsed:  36.54445219039917
 </pre>
 </div>
 </div>
@@ -12982,26 +13541,10 @@ S A T Y R   S T Y E   A N K A
 </div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cand_methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cand_kg&#39;</span><span class="p">,</span><span class="s1">&#39;cand_wk&#39;</span><span class="p">,</span><span class="s1">&#39;cand_vec&#39;</span><span class="p">,</span><span class="s1">&#39;cand_wn&#39;</span><span class="p">,</span><span class="s1">&#39;cand_dct&#39;</span><span class="p">]</span>
-
-<span class="k">def</span> <span class="nf">getHitCountDemo</span><span class="p">(</span><span class="n">clues</span><span class="p">):</span>
-    <span class="n">success</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">tally</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">clues</span><span class="p">:</span>
-        <span class="n">score</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cand_methods</span><span class="p">]</span>
-        <span class="n">add</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cand_methods</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="n">j</span><span class="p">]]:</span>
-                <span class="n">add</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="n">score</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">add</span><span class="p">:</span>
-            <span class="n">success</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="n">tally</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hits:&#39;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">success</span><span class="p">),</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">clues</span><span class="p">),</span><span class="s1">&#39;=&#39;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">success</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">clues</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">success</span><span class="p">,</span><span class="n">tally</span>
 
 <span class="n">puzzle</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./data/merge_1002-17_cands.json&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">))</span>
 <span class="n">clues</span> <span class="o">=</span> <span class="n">puzzle</span><span class="p">[</span><span class="s1">&#39;clues&#39;</span><span class="p">]</span>
@@ -13030,7 +13573,18 @@ S A T Y R   S T Y E   A N K A
 </div>
 </div>
 
-</div></div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As I mentioned earlier, the program does not currently solve a full puzzle. The feat I have accomplished is to generate a set of candidates that contains the correct answer for about 42% of clues, in the case of this past Monday. Some weeks it's a few points higher, some a few points lower.</p>
+
+</div>
+</div>
+</div>
+</aside></div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -13041,7 +13595,7 @@ S A T Y R   S T Y E   A N K A
 </div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tally</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">],</span><span class="n">success</span><span class="p">),</span><span class="n">columns</span><span class="o">=</span><span class="n">cand_methods</span><span class="p">)</span>
@@ -13058,7 +13612,7 @@ S A T Y R   S T Y E   A N K A
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[40]:</div>
+<div class="prompt output_prompt">Out[56]:</div>
 
 
 
@@ -13077,10 +13631,22 @@ dtype: int64</pre>
 </div>
 </div>
 
-</div></div></section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I did some analytics on the five methods that I’m using. The first takeaway is that Wikipedia is by far the strongest. This makes some sense, because it's going to find factual clues through its encyclopedia-like function, but it also knows some things about language because of expressions or idioms that might be present in its pages, or might even have their own page.</p>
+<p>The second takeaway is that every method is making some unique contribution.</p>
+
+</div>
+</div>
+</div>
+</aside></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
@@ -13096,7 +13662,7 @@ dtype: int64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[41]:</div>
+<div class="prompt output_prompt">Out[57]:</div>
 
 
 
@@ -13393,7 +13959,41 @@ dtype: int64</pre>
 </div>
 </div>
 
-</div></section></section><section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I know how well my program is doing because I can automatically search for the correct answer in the candidates list, but my program doesn’t have access to that information -- that would defeat the purpose of creating a solver. My solver has to rely on a different method for inferring whether the answer is correct, the same one a human solver would use. It has to look at all the intersecting words and see if there is a plausible answer for each of them with the same letters in the corresponding places.</p>
+<p>This means it's hard to determine which of the candidates is in fact the correct answer if we cannot necessarily find its letters in intersecting correct answers.</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="images/ySX2YzO.jpg" alt="push up square">
+source: <a href="https://imgur.com/gallery/ySX2YzO">https://imgur.com/gallery/ySX2YzO</a></p>
+
+</div>
+</div>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It's a little like the push-up square: everyone needs to be lifting at the same time or the whole thing never gets off the ground. There is a circular dependency where finding the correct answer depends on being able to find other correct answers, and we can only accomplish this if a substantial number of the correct answers are present.</p>
+<p>The academic term for this is "constraint problem", and for those who are interested, there is some research out there applying this to crossword puzzles.</p>
+
+</div>
+</div>
+</div>
+</aside></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -13412,19 +14012,35 @@ dtype: int64</pre>
 </ul>
 <h3 id="Improving-the-hit-rate">Improving the hit rate<a class="anchor-link" href="#Improving-the-hit-rate">&#182;</a></h3><ul>
 <li>More formulations (previously added ~10%)</li>
-<li>Other APIs? ML?</li>
 <li>Pattern to the non-hits</li>
-<li>Systems to handle multi-word answers, pairs of answers</li>
+<li>Other APIs? ML?</li>
+<li>Systems to handle multi-word answers, pairs of answers, themes</li>
 </ul>
+<h3 id="Am-I-approaching-this-the-wrong-way?">Am I approaching this the wrong way?<a class="anchor-link" href="#Am-I-approaching-this-the-wrong-way?">&#182;</a></h3>
+</div>
+</div>
+</div><aside class="notes">
 
-</div>
-</div>
-</div></section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Thank-You!">Thank You!<a class="anchor-link" href="#Thank-You!">&#182;</a></h2><h4 id="Source-code:-github.com/anbnyc/xword">Source code: <a href="github.com/anbnyc/xword">github.com/anbnyc/xword</a><a class="anchor-link" href="#Source-code:-github.com/anbnyc/xword">&#182;</a></h4><h4 id="Find-me:-@alecbarrett">Find me: <a href="www.twitter.com/alecbarrett">@alecbarrett</a><a class="anchor-link" href="#Find-me:-@alecbarrett">&#182;</a></h4>
+<p>My top priority for this project is to get the hit rate above 50%. Until I can do that, I don't have much faith in the program's ability to actually start solving. With that said, I don't think I need to have 100% of the answers in the candidates, because some answers can be found entirely based on the intersecting letters, the same way a human solver would do it. Given a 15-letter multi-word answer with 10 or 12 letters already solved, the program could just narrow down solely based on the real English words that fit, ignoring the clue altogether.</p>
+<p>Some ways I might be able to improve the hit rate: first, just try more formulations. These things can be finicky, and sometimes including or excluding a punctuation mark makes the difference between whether these methods can find the answer or not.</p>
+<p>I haven't yet analyzed if there's some systematic pattern to the clues that aren't getting found. It's possible that a different kind of API or technique for parsing them would make them more manageable for machines.</p>
+<p>Another avenue that I hope to pursue is machine learning. With access to years’ worth of clue-answer combinations as training data, I believe the program could make some of the more indirect associations between clues and answers. The downside of this approach is that the black box of the model obscures how the program made the connections. It also intuitively seems really really hard, if you compare a task like image classification, where you might have one or a hundred image categories, to this task where the possible outputs are every English dictionary word of a certain length, plus names, phrases, abbreviations. I don't yet know enough about ML to know what the implications for the model would be.</p>
+<p>This might also help with handling multi-word answers, clues that reference other clues, and puzzle themes. These are the kinds of things that are very hard to write explicit instructions for.</p>
+<p>Finally, I can't help but wonder if I'm approaching this the wrong way. I'm trying to write a program to solve a crossword puzzle the way a human solves a crossword puzzle: incrementally, by looking up clues in whatever "brain" the solver has access to and finding corresponding answers that fit. But maybe I should be considering approaches that are virtually impossible for a human but much easier for a computer, which has access to the entire English language, like examining the large but finite number of crossword puzzle states and narrowing them down through a process of elimination for ungrammatical, nonsense, or nonexistent words.</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Thank-You!">Thank You!<a class="anchor-link" href="#Thank-You!">&#182;</a></h2><h4 id="Source-code:-github.com/anbnyc/xword">Source code: <a href="github.com/anbnyc/xword">github.com/anbnyc/xword</a><a class="anchor-link" href="#Source-code:-github.com/anbnyc/xword">&#182;</a></h4><h4 id="Talk-to-me:-@alecbarrett">Talk to me: <a href="www.twitter.com/alecbarrett">@alecbarrett</a><a class="anchor-link" href="#Talk-to-me:-@alecbarrett">&#182;</a></h4>
 </div>
 </div>
 </div></section></section>
